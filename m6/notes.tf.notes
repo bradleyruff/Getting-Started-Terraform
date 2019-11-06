@@ -1,0 +1,44 @@
+Module 6
+Exploring function and the CLI
+Examine available providers
+
+Terraform Functions
+Built-in to Terraform
+func_name(arg1, arg2, arg3, ...)
+Test in TF console...  TF can use this to evaluate before running
+Several broad categories
+
+Common Function categories
+
+Numeric    - min(42,13,7)
+String     - lower("TACOS")
+Collection - merge(map1,map2)  <== collections are lists and maps
+Filesystem - file(path)
+IP network - cidrsubnet()
+Date and time - timestamp()  <== no args, just returns current date and time
+
+#Configure networking
+variable network_info {
+    default = "10.1.0.0/16" #type, defalut, description
+}
+
+#Returns 10.1.0.0/24
+cidr_block = cidrsubnet(var.network_info, 8, 0)
+
+#Returns 10.1.0.5
+host_ip = cidrhost (var.network_inform,5)
+
+
+#create ami map
+variable "amis" {
+  type = "map"
+  default = {
+      us-east-1 = "ami-1234"
+      us-west-1 = "ami-5678"
+  }
+}
+ami = lookup(var.amis, "us-east-1", "error")
+
+
+
+

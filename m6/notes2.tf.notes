@@ -1,0 +1,23 @@
+Terraform Providers
+
+Iaas, Paas, and SaaS
+Community and HashiCorp
+Open source
+
+Providers are a collection of resources and data sources
+
+Multiple instances of the same provider in the configuration
+
+provider "azurerm" {
+    subscription_id = "subscription-id"
+    client_id = "principal-used-for-access"
+    client_secret = "password-of-principal"
+    tenant_id = "tenant-id"
+    alias = "arm-1"
+}
+
+resource "azurerm_resource_group" "azure_tacos" {
+  name = "resource-group-name"
+  location = "East US"
+  provider = azurerm.arm-1
+}

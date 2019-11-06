@@ -1,0 +1,30 @@
+Resource Arguments
+
+depends_on
+count - implements a resource loop, count uses an integer
+for_each - like count, implements a resource loop, but uses a map instead of an integer
+provider - which provider to use so TF knows
+
+Depends_on and count
+
+resource "aws_instance" "taco_servers" {
+    count = 2
+    tags {
+        Name ="customer-${count.index}"
+    }
+    depends_on = [aws_iam_role_policy.allow_s3]
+}
+
+
+For_each
+
+resource "aws_s3_bucket" "taco_toppings" {
+  for_each = {
+      food = "public-read"
+      cash = "private"
+  }
+  bucket = "${each.key}-${var.bucket_suffix}"
+  acl = each.value
+}
+
+

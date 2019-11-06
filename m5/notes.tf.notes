@@ -1,0 +1,32 @@
+Terraform Provisioners
+
+Last resort
+
+Local or remote...  they can be local or remote...  local on machine or in remote environment
+
+Creation or destruction
+
+Multiple Provisioners
+
+What if all goes wrong?  TF will stop and let you know things went wrong
+
+
+Provisioner Example
+provision "file" {
+  connection {
+      type = "ssh"
+      user = "root"
+      private_key = var.private_key
+      host = var.hostname
+  }
+  source = "/local/path/to/file.txt"
+  destination = "/path/to/file.txt"
+}
+
+provisioner "local-exec" {
+    command = "local command here"
+}
+
+provisioner "remote-exec" {
+    scripts = ["list", "of", "local", "scripts"]
+}
